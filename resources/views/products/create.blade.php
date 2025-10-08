@@ -55,7 +55,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group mb-3">
                                         <label class="font-weight-bold">PRICE</label>
-                                        <input type="number" class="form-control @error('price') is-invalid @enderror" name="harga" placeholder="Masukkan Harga Product">
+                                        <input type="number" class="form-control @error('price') is-invalid @enderror" name="price" placeholder="Masukkan Harga Product">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
