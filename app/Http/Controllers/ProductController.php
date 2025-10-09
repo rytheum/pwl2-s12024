@@ -59,7 +59,7 @@ class ProductController extends Controller
         //var_dump($request);exit;
         //validate form
         $validatedData = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:10240',
             'title' => 'required|min:5',
             'product_category' => 'required|integer',
             'description' => 'required|min:10',
