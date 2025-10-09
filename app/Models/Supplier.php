@@ -8,10 +8,12 @@ class Supplier extends Model
 {
     protected $table = 'suppliers';
 
-    public function get_supplier()
-    {
-        //get all supplier
-        $sql = $this->select("*");
-        return $sql;
+    protected $fillable = [
+        'supplier_name',
+        'pic_supplier',
+    ];
+
+    public function get_supplier(){
+        return $this->select('*');
     }
 }

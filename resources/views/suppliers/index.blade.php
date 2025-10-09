@@ -64,12 +64,11 @@
 
 <body>
 
-    {{-- Sidebar --}}
     <div class="sidebar">
-        <h4>Admin Panel</h4>
-      <a href="{{ route('products.index') }}" class="active">Products</a>
-    <a href="{{ route('suppliers.index') }}">Suppliers</a>
-    </div>
+    <h4>Admin Panel</h4>
+    <a href="{{ route('products.index') }}" >Products</a>
+    <a href="{{ route('suppliers.index') }}" class = "active">Suppliers</a>
+</div>
 
     {{-- Main Content --}}
     <div class="content">
@@ -77,39 +76,30 @@
 
         <div class="card shadow-sm rounded">
             <div class="card-body">
-                <a href="{{ route('products.create') }}" class="btn btn-success mb-3">+ Add Product</a>
+                <a href="{{ route('suppliers.create') }}" class="btn btn-success mb-3">+ Add Supplier</a>
                 <table class="table table-bordered align-middle">
                     <thead class="table-dark">
                         <tr>
-                            <th scope="col">Image</th>
-                            <th scope="col">Title</th>
+                            <th scope="col">Id</th>
                             <th scope="col">Supplier</th>
-                            <th scope="col">Category</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Stock</th>
+                            <th scope="col">Pic_Supplier</th>
                             <th scope="col" style="width: 20%">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($products as $product)
+                        @forelse ($suppliers as $supplier)
                             <tr>
+                                <td>{{ $supplier->id }}</td>
+                                <td>{{ $supplier->supplier_name }}</td>
+                                <td>{{ $supplier->pic_supplier }}</td>
                                 <td class="text-center">
-                                    <img src="{{ asset('storage/images/' . $product->image) }}"
-                                        alt="{{ $product->title }}">
-                                </td>
-                                <td>{{ $product->title }}</td>
-                                <td>{{ $product->supplier_name }}</td>
-                                <td>{{ $product->product_category_name }}</td>
-                                <td>{{ "Rp" . number_format($product->price, 2, ',', '.') }}</td>
-                                <td>{{ $product->stock }}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('products.show', $product->id) }}"
+                                    <a href="{{ route('suppliers.show', $supplier->id) }}"
                                         class="btn btn-sm btn-dark">SHOW</a>
-                                    <a href="{{ route('products.edit', $product->id) }}"
+                                    <a href="{{ route('suppliers.edit', $supplier->id) }}"
                                         class="btn btn-sm btn-primary">EDIT</a>
 
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST"
-                                        class="d-inline" id="form-delete" data-title="{{ $product->title }}">
+                                    <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST"
+                                        class="d-inline" id="form-delete" data-title="{{ $supplier->id }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
@@ -118,12 +108,12 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center text-muted">Data Product Belum Tersedia</td>
+                                <td colspan="7" class="text-center text-muted">Data Supplier Belum Tersedia</td>
                             </tr>
                         @endforelse
                     </tbody>
                 </table>
-                {{ $products->links() }}
+                {{ $suppliers->links() }}
             </div>
         </div>
     </div>
