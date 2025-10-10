@@ -2,80 +2,107 @@
 
 namespace App\Http\Controllers;
 
-//import return type view
-use Illuminate\View\View;
-
 use App\Models\Supplier;
-
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class SupplierController extends Controller
 {
     /**
      * index
-     * 
-     * @return void
+     *
+     * @return View
      */
     public function index(): View
     {
-        $suppliers = Supplier::orderBy('id', 'DESC')->paginate(10);
+        $suppliers = Supplier::orderBy('id', 'asc')->paginate(10);
         return view('suppliers.index', compact('suppliers'));
     }
 
- /**
+    /**
      * create
-     * 
-     * @return void
+     *
+     * @return View
      */
     public function create(): View
     {
         return view('suppliers.create');
     }
 
-    public function store(Request $request)
+    /**
+     * store
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function store(Request $request): RedirectResponse
     {
-        $request->validate([
-            'supplier_name' => 'required|string|max:255',
-            'contact' => 'nullable|string|max:100',
-            'address' => 'nullable|string|max:255',
+        $validatedData = $request->validate([
+            'supplier_name' => 'required|string|max:255|unique:suppliers,supplier_name',
+            'pic_supplier' => 'required|string|max:255'
         ]);
 
-        Supplier::create($request->all());
+        Supplier::create($validatedData);
 
-        return redirect()->route('suppliers.index')->with('success', 'Supplier berhasil ditambahkan!');
+        return redirect()->route('suppliers.index')->with('success', 'Supplier berhasil ditambahkan.');
     }
 
- /**
-     * create
-     * 
-     * @return void
+    /**
+     * show
+     *
+     * @param string $id
+     * @return View
      */
-    public function edit($id): View
+    public function show(string $id): View
+    {
+        $supplier = Supplier::findOrFail($id);
+        return view('suppliers.show', compact('supplier'));
+    }
+
+    /**
+     * edit
+     *
+     * @param string $id
+     * @return View
+     */
+    public function edit(string $id): View
     {
         $supplier = Supplier::findOrFail($id);
         return view('suppliers.edit', compact('supplier'));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * update
+     *
+     * @param Request $request
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function update(Request $request, string $id): RedirectResponse
     {
-        $supplier = Supplier::findOrFail($id);
-
-        $request->validate([
-            'supplier_name' => 'required|string|max:255',
-            'contact' => 'nullable|string|max:100',
-            'address' => 'nullable|string|max:255',
+        $validatedData = $request->validate([
+            'supplier_name' => 'required|unique:suppliers,supplier_name,' .$id,
+            'pic_supplier' => 'required|string|max:255'
         ]);
 
-        $supplier->update($request->all());
+        $supplier = Supplier::findOrFail($id);
+        $supplier->update($validatedData);
 
-        return redirect()->route('suppliers.index')->with('success', 'Supplier berhasil diperbarui!');
+        return redirect()->route('suppliers.index')->with('success', 'Supplier berhasil diubah.');
     }
 
-    public function destroy($id)
+    /**
+     * destroy
+     *
+     * @param string $id
+     * @return RedirectResponse
+     */
+    public function destroy(string $id): RedirectResponse
     {
         $supplier = Supplier::findOrFail($id);
         $supplier->delete();
 
-        return redirect()->route('suppliers.index')->with('success', 'Supplier berhasil dihapus!');
+        return redirect()->route('suppliers.index')->with('success', 'Supplier berhasil dihapus.');
     }
 }

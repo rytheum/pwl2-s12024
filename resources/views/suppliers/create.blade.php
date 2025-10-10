@@ -5,8 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add New Supplier</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #bad4ffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        h3 {
+            color: #000000ff;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .card {
+            border-radius: 15px;
+            background: #fff;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+        }
+        .form-label {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-warning {
+            color: #fff;
+            background-color: #f39c12;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-warning:hover {
+            background-color: #d68910;
+        }
+        .btn-secondary {
+            color: #fff;
+            background-color: #6c757d;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background-color: #565e64;
+        }
+    </style>
 </head>
-<body style="background:lightgray">
+
+<body>
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
@@ -18,7 +65,7 @@
 
                             {{-- Supplier Name --}}
                             <div class="form-group mb-3">
-                                <label class="font-weight-bold">Supplier Name</label>
+                                <label class="font-weight-bold">Supplier</label>
                                 <input type="text" name="supplier_name" 
                                        class="form-control @error('supplier_name') is-invalid @enderror" 
                                        placeholder="Masukkan nama supplier" 
@@ -40,16 +87,16 @@
                                 @enderror
                             </div>
 
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-primary me-2">Save</button>
-                                <button type="reset" class="btn btn-warning">Reset</button>
+                            {{-- BUTTONS --}}
+                            <div class="d-flex justify-content-end mt-4">
+                                <button type="submit" class="btn btn-primary me-3 px-4">💾 Save</button>
+                                <button type="button" id="resetBtn" onclick="resetForm()" class="btn btn-warning me-3 px-4">🔄 Reset</button>
+                                <a href="{{ route('products.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
                             </div>
                         </form>
                     </div>
                 </div>
-                <div class="text-center mt-3">
-                    <a href="{{ route('suppliers.index') }}" class="btn btn-secondary btn-sm">Back to List</a>
-                </div>
+                
             </div>
         </div>
     </div>
