@@ -4,75 +4,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Data Products</title>
+    <title>Data Supplier</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
     <style>
         body {
-            background: #f8f9fa;
+            background: #bad4ffff;
+            color: #e6edf3;
+            overflow-x: hidden;
+            font-family: 'Poppins', sans-serif;
         }
 
+        /* SIDEBAR */
         .sidebar {
             width: 250px;
             height: 100vh;
-            background: #343a40;
+            background: #161b22;
             position: fixed;
             top: 0;
             left: 0;
-            color: white;
+            color: #fff;
             padding-top: 20px;
+            transition: all 0.3s ease;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
         }
 
         .sidebar h4 {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            color: #00b4d8;
         }
 
         .sidebar a {
-            color: white;
+            color: #c9d1d9;
             text-decoration: none;
             display: block;
-            padding: 12px 20px;
-            transition: background 0.3s;
+            padding: 12px 25px;
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
         }
 
         .sidebar a:hover,
         .sidebar a.active {
-            background: #495057;
+            background: #21262d;
+            border-left: 4px solid #00b4d8;
+            color: #fff;
         }
 
+        /* Toggle Sidebar */
+        .sidebar.hide {
+            left: -250px;
+        }
+
+        /* NAVBAR ATAS */
+        .navbar-custom {
+            background: #161b22;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .navbar-custom.full {
+            left: 0;
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #00d5ffff;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* CONTENT */
         .content {
             margin-left: 250px;
-            padding: 30px;
+            padding: 100px 40px 40px 40px;
+            transition: all 0.3s ease;
         }
 
-        .table img {
-            width: 100px;
-            height: auto;
-            border-radius: 8px;
+        .content.full {
+            margin-left: 0;
+        }
+
+        h2 {
+            color: #000000ff;
+            font-weight: 600;
         }
 
         .card {
-            border: none;
+            background: #feffffff;
+            border: 1px solid #30363d;
+            border-radius: 10px;
+        }
+
+        .table {
+            color: #e6edf3;
+            border-color: #000000ff;
+        }
+
+        .table thead {
+            background: #21262d;
+            color: #00b4d8;
+        }
+
+        .table tbody tr:hover {
+            background: #1e2329;
         }
 
         .btn {
             border-radius: 6px;
         }
+
+        .btn-success {
+            background: #00b4d8;
+            border: none;
+        }
+
+        .btn-success:hover {
+            background: #0096c7;
+        }
+
+        .table img {
+            width: 90px;
+            border-radius: 10px;
+        }
+
+        .footer-custom {
+    background: #161b22;
+    color: #c9d1d9;
+    position: fixed;
+    bottom: 0;
+    left: 250px; /* default sama sidebar */
+    right: 0;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.footer-custom.full {
+    left: 0; 
+}
+
     </style>
 </head>
 
 <body>
 
-    <div class="sidebar">
-    <h4>Admin Panel</h4>
-    <a href="{{ route('products.index') }}" >Products</a>
-    <a href="{{ route('suppliers.index') }}" class = "active">Suppliers</a>
-</div>
+    {{-- SIDEBAR --}}
+    <div class="sidebar" id="sidebar">
+        <h4>Tech Admin</h4>
+        <a href="{{ route('products.index') }}"><i class="fas fa-box"></i> Products</a>
+        <a href="{{ route('suppliers.index') }}" class="active"><i class="fas fa-truck"></i> Suppliers</a>
+        <a href="#"><i class="fas fa-tags"></i> Categories</a>
+        <a href="#"><i class="fas fa-sack-dollar"></i> Transactions</a>
+    </div>
 
+
+    {{-- NAVBAR --}}
+    <div class="navbar-custom" id="navbar">
+        <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars"></i></button>
+        <span class="ms-3 fw-semibold">Admin Dashboard</span>
+    </div>
     {{-- Main Content --}}
     <div class="content">
-        <h2 class="fw-bold mb-4">Data Products</h2>
+        <h2 class="fw-bold mb-1">Data Supplier</h2>
 
         <div class="card shadow-sm rounded">
             <div class="card-body">
@@ -94,15 +202,15 @@
                                 <td>{{ $supplier->pic_supplier }}</td>
                                 <td class="text-center">
                                     <a href="{{ route('suppliers.show', $supplier->id) }}"
-                                        class="btn btn-sm btn-dark">SHOW</a>
+                                        class="btn btn-lg btn-primary"><i class="fas fa-eye"></i></a>
                                     <a href="{{ route('suppliers.edit', $supplier->id) }}"
-                                        class="btn btn-sm btn-primary">EDIT</a>
+                                        class="btn btn-lg btn-warning"><i class="fas fa-edit"></i></a>
 
                                     <form action="{{ route('suppliers.destroy', $supplier->id) }}" method="POST"
                                         class="d-inline" id="form-delete" data-title="{{ $supplier->id }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
+                                        <button type="submit" class="btn btn-lg btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -118,54 +226,74 @@
         </div>
     </div>
 
-    {{-- JS --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<footer class="footer-custom text-center py-3">
+    <p class="mb-0">&copy; {{ date('Y') }} Tech Admin | Built with
+        <i class="fa-solid fa-heart text-danger"></i> By Josevan, Aditya Sutanto, Steven Credentia, Halim Kurniawan
+    </p>
+</footer>
 
-    <script>
-        // ✅ flash message dengan SweetAlert
-        @if(session()->has('success'))
+{{-- JS --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script>
+    // ✅ flash message dengan SweetAlert
+    @if(session()->has('success'))
+        Swal.fire({
+            icon: "success",
+            title: "BERHASIL",
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @elseif(session('error'))
+        Swal.fire({
+            icon: "error",
+            title: "GAGAL",
+            text: "{{ session('error') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @endif
+
+    // ✅ konfirmasi hapus
+    document.querySelectorAll('#form-delete').forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const productTitle = form.getAttribute('data-title');
             Swal.fire({
-                icon: "success",
-                title: "BERHASIL",
-                text: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        @elseif(session('error'))
-            Swal.fire({
-                icon: "error",
-                title: "GAGAL",
-                text: "{{ session('error') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        @endif
-
-        // ✅ konfirmasi hapus
-        document.querySelectorAll('#form-delete').forEach(function (form) {
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                const productTitle = form.getAttribute('data-title');
-
-                Swal.fire({
-                    title: `Yakin hapus "${productTitle}"?`,
-                    text: "Data yang dihapus tidak bisa dikembalikan!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Ya, hapus!",
-                    cancelButtonText: "Batal"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
+                title: `Yakin hapus "${productTitle}"?`,
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, hapus!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
         });
-    </script>
+    });
+
+    // ✅ toggle sidebar + footer
+    const sidebar = document.getElementById('sidebar');
+    const navbar = document.getElementById('navbar');
+    const content = document.querySelector('.content');
+    const footer = document.querySelector('.footer-custom');
+
+    document.getElementById('toggle-btn').addEventListener('click', () => {
+        sidebar.classList.toggle('hide');
+        navbar.classList.toggle('full');
+        content.classList.toggle('full');
+        footer.classList.toggle('full');
+    });
+</script>
+
+
 
 </body>
 

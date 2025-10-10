@@ -6,139 +6,158 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Data Products</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
 
-    <style>
-        body {
-            background: #0d1117;
-            color: #e6edf3;
-            overflow-x: hidden;
-            font-family: 'Poppins', sans-serif;
-        }
+<style>
+    body {
+        background: #bad4ffff;
+        color: #e6edf3;
+        overflow-x: hidden;
+        font-family: 'Poppins', sans-serif;
+    }
 
-        /* SIDEBAR */
-        .sidebar {
-            width: 250px;
-            height: 100vh;
-            background: #161b22;
-            position: fixed;
-            top: 0;
-            left: 0;
-            color: #fff;
-            padding-top: 20px;
-            transition: all 0.3s ease;
-            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
-        }
+    /* SIDEBAR */
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        background: #161b22;
+        position: fixed;
+        top: 0;
+        left: 0;
+        color: #fff;
+        padding-top: 20px;
+        transition: all 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+    }
 
-        .sidebar h4 {
-            text-align: center;
-            margin-bottom: 40px;
-            color: #00b4d8;
-        }
+    .sidebar h4 {
+        text-align: center;
+        margin-bottom: 40px;
+        color: #00b4d8;
+    }
 
-        .sidebar a {
-            color: #c9d1d9;
-            text-decoration: none;
-            display: block;
-            padding: 12px 25px;
-            transition: all 0.3s ease;
-            border-left: 4px solid transparent;
-        }
+    .sidebar a {
+        color: #c9d1d9;
+        text-decoration: none;
+        display: block;
+        padding: 12px 25px;
+        transition: all 0.3s ease;
+        border-left: 4px solid transparent;
+    }
 
-        .sidebar a:hover,
-        .sidebar a.active {
-            background: #21262d;
-            border-left: 4px solid #00b4d8;
-            color: #fff;
-        }
+    .sidebar a:hover,
+    .sidebar a.active {
+        background: #21262d;
+        border-left: 4px solid #00b4d8;
+        color: #fff;
+    }
 
-        /* Toggle Sidebar */
-        .sidebar.hide {
-            left: -250px;
-        }
+    /* Toggle Sidebar */
+    .sidebar.hide {
+        left: -250px;
+    }
 
-        /* NAVBAR ATAS */
-        .navbar-custom {
-            background: #161b22;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            position: fixed;
-            top: 0;
-            left: 250px;
-            right: 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-            z-index: 999;
-        }
+    /* NAVBAR ATAS */
+    .navbar-custom {
+        background: #161b22;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        position: fixed;
+        top: 0;
+        left: 250px;
+        right: 0;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
 
-        .navbar-custom.full {
-            left: 0;
-        }
+    .navbar-custom.full {
+        left: 0;
+    }
 
-        .toggle-btn {
-            background: none;
-            border: none;
-            color: #00b4d8;
-            font-size: 24px;
-            cursor: pointer;
-        }
+    .toggle-btn {
+        background: none;
+        border: none;
+        color: #00d5ffff;
+        font-size: 24px;
+        cursor: pointer;
+    }
 
-        /* CONTENT */
-        .content {
-            margin-left: 250px;
-            padding: 100px 40px 40px 40px;
-            transition: all 0.3s ease;
-        }
+    /* CONTENT */
+    .content {
+        margin-left: 250px;
+        padding: 100px 40px 40px 40px;
+        transition: all 0.3s ease;
+    }
 
-        .content.full {
-            margin-left: 0;
-        }
+    .content.full {
+        margin-left: 0;
+    }
 
-        h2 {
-            color: #00b4d8;
-            font-weight: 600;
-        }
+    h2 {
+        color: #000000ff;
+        font-weight: 600;
+    }
 
-        .card {
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 10px;
-        }
+    .card {
+        background: #feffffff;
+        border: 1px solid #30363d;
+        border-radius: 10px;
+    }
 
-        .table {
-            color: #e6edf3;
-            border-color: #30363d;
-        }
+    .table {
+        color: #e6edf3;
+        border-color: #000000ff;
+    }
 
-        .table thead {
-            background: #21262d;
-            color: #00b4d8;
-        }
+    .table thead {
+        background: #21262d;
+        color: #00b4d8;
+    }
 
-        .table tbody tr:hover {
-            background: #1e2329;
-        }
+    .table tbody tr:hover {
+        background: #1e2329;
+    }
 
-        .btn {
-            border-radius: 6px;
-        }
+    .btn {
+        border-radius: 6px;
+    }
 
-        .btn-success {
-            background: #00b4d8;
-            border: none;
-        }
+    .btn-success {
+        background: #00b4d8;
+        border: none;
+    }
 
-        .btn-success:hover {
-            background: #0096c7;
-        }
+    .btn-success:hover {
+        background: #0096c7;
+    }
 
-        .table img {
-            width: 90px;
-            border-radius: 10px;
-        }
-    </style>
+    .table img {
+        width: 90px;
+        border-radius: 10px;
+    }
+
+    .footer-custom {
+        background: #161b22;
+        color: #c9d1d9;
+        position: fixed;
+        bottom: 0;
+        left: 250px;
+        /* default sama sidebar */
+        right: 0;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5);
+        transition: all 0.3s ease;
+    }
+
+    .footer-custom.full {
+        left: 0;
+    }
+</style>
 </head>
 
 <body>
@@ -146,27 +165,27 @@
     {{-- SIDEBAR --}}
     <div class="sidebar" id="sidebar">
         <h4>Tech Admin</h4>
-        <a href="{{ route('products.index') }}" class="active"><i class="bi bi-phone"></i> Products</a>
-        <a href="{{ route('suppliers.index') }}"><i class="bi bi-truck"></i> Suppliers</a>
-        <a href="#"><i class="bi bi-tags"></i> Categories</a>
-        <a href="#"><i class="bi bi-cash-stack"></i> Transactions</a>
+        <a href="{{ route('products.index') }}"class="active"><i class="fas fa-box"></i> Products</a>
+        <a href="{{ route('suppliers.index') }}" ><i class="fas fa-truck"></i> Suppliers</a>
+        <a href="#"><i class="fas fa-tags"></i> Categories</a>
+        <a href="#"><i class="fas fa-sack-dollar"></i> Transactions</a>
     </div>
 
     {{-- NAVBAR --}}
     <div class="navbar-custom" id="navbar">
-        <button class="toggle-btn" id="toggle-btn"><i class="bi bi-list"></i></button>
+        <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars"></i></button>
         <span class="ms-3 fw-semibold">Admin Dashboard</span>
     </div>
 
     {{-- CONTENT --}}
     <div class="content" id="content">
-        <h2 class="mb-4">Data Products</h2>
+        <h2 class="mb-1">Data Products</h2>
 
-        <div class="card shadow-sm">
+        <div class="card shadow-sm rounded">
             <div class="card-body">
                 <a href="{{ route('products.create') }}" class="btn btn-success mb-3">+ Add Product</a>
                 <table class="table table-bordered align-middle">
-                    <thead>
+                    <thead class="table-dark">
                         <tr>
                             <th>Image</th>
                             <th>Title</th>
@@ -187,13 +206,13 @@
                                 <td>{{ "Rp" . number_format($product->price, 2, ',', '.') }}</td>
                                 <td>{{ $product->stock }}</td>
                                 <td class="text-center">
-                                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-sm btn-dark">SHOW</a>
-                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-primary">EDIT</a>
+                                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-lg btn-primary"><i class="fas fa-eye"></i></a>
+                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-lg btn-warning"><i class="fas fa-edit"></i></a>
                                     <form action="{{ route('products.destroy', $product->id) }}" method="POST"
                                         class="d-inline" id="form-delete" data-title="{{ $product->title }}">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger">DELETE</button>
+                                        <button type="submit" class="btn btn-lg btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>
@@ -208,62 +227,74 @@
             </div>
         </div>
     </div>
+<!-- FOOTER -->
+<footer class="footer-custom text-center py-3">
+    <p class="mb-0">&copy; {{ date('Y') }} Tech Admin | Built with
+        <i class="fa-solid fa-heart text-danger"></i> By Josevan,Aditya Sutanto,Steven Credentia,Halim Kurniawan
+    </p>
+<!-- FOOTER -->
 
-    {{-- JS --}}
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- JS --}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-    <script>
-        // Toggle sidebar
-        const toggleBtn = document.getElementById('toggle-btn');
-        const sidebar = document.getElementById('sidebar');
-        const content = document.getElementById('content');
-        const navbar = document.getElementById('navbar');
-
-        toggleBtn.addEventListener('click', () => {
-            sidebar.classList.toggle('hide');
-            content.classList.toggle('full');
-            navbar.classList.toggle('full');
+<script>
+    // ✅ flash message dengan SweetAlert
+    @if(session()->has('success'))
+        Swal.fire({
+            icon: "success",
+            title: "BERHASIL",
+            text: "{{ session('success') }}",
+            showConfirmButton: false,
+            timer: 2000
         });
+    @elseif(session('error'))
+        Swal.fire({
+            icon: "error",
+            title: "GAGAL",
+            text: "{{ session('error') }}",
+            showConfirmButton: false,
+            timer: 2000
+        });
+    @endif
 
-        // SweetAlert Flash Message
-        @if(session()->has('success'))
+    // ✅ konfirmasi hapus
+    document.querySelectorAll('#form-delete').forEach(function (form) {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            const productTitle = form.getAttribute('data-title');
             Swal.fire({
-                icon: "success",
-                title: "SUCCESS",
-                text: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        @elseif(session('error'))
-            Swal.fire({
-                icon: "error",
-                title: "FAILED",
-                text: "{{ session('error') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        @endif
-
-        // SweetAlert Confirm Delete
-        document.querySelectorAll('#form-delete').forEach(form => {
-            form.addEventListener('submit', e => {
-                e.preventDefault();
-                const title = form.getAttribute('data-title');
-                Swal.fire({
-                    title: `Delete "${title}"?`,
-                    text: "Data will be permanently deleted!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Yes, delete it!"
-                }).then(result => {
-                    if (result.isConfirmed) form.submit();
-                });
+                title: `Yakin hapus "${productTitle}"?`,
+                text: "Data yang dihapus tidak bisa dikembalikan!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#d33",
+                cancelButtonColor: "#3085d6",
+                confirmButtonText: "Ya, hapus!",
+                cancelButtonText: "Batal"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
             });
         });
-    </script>
+    });
+
+    // ✅ toggle sidebar + footer
+    const sidebar = document.getElementById('sidebar');
+    const navbar = document.getElementById('navbar');
+    const content = document.querySelector('.content');
+    const footer = document.querySelector('.footer-custom');
+
+    document.getElementById('toggle-btn').addEventListener('click', () => {
+        sidebar.classList.toggle('hide');
+        navbar.classList.toggle('full');
+        content.classList.toggle('full');
+        footer.classList.toggle('full');
+    });
+</script>
+
 </body>
 
 </html>

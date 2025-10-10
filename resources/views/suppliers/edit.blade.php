@@ -6,8 +6,80 @@
     <title>Edit Supplier</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body style="background:lightgray">
+<style>
+        body {
+            background: #bad4ffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
+        h4 {
+            color: #000000ff;
+            font-weight: 700;
+        }
+
+        .card {
+            border-radius: 15px;
+            background: #ffffff;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        label {
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .form-control {
+            border-radius: 10px;
+            border: 1px solid #dfe6e9;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: #0d6efd;
+            box-shadow: 0 0 5px rgba(13, 110, 253, 0.3);
+        }
+
+        .btn-primary {
+            background: #0d6efd;
+            border: none;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #0b5ed7;
+        }
+
+        .btn-warning {
+            border: none;
+            border-radius: 8px;
+            color: #212529;
+            transition: 0.3s;
+        }
+
+        .btn-warning:hover {
+            background-color: #ffcd39;
+        }
+
+        .btn-secondary {
+            color: #fff;
+            background-color: #6c757d;
+            border: none;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background-color: #565e64;
+        }
+
+        .alert-danger {
+            border-radius: 10px;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+        }
+    </style>
+<body>
 <div class="container mt-5 mb-5">
     <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -52,15 +124,14 @@
                             @enderror
                         </div>
 
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-md btn-primary me-2">UPDATE</button>
-                            <button type="reset" class="btn btn-md btn-warning">RESET</button>
-                        </div>
+                         {{-- BUTTONS --}}
+                            <div class="d-flex justify-content-end mt-4">
+                                <a href="{{ route('products.index') }}" class="btn btn-secondary me-3">⬅️ Back</a>
+                                <button type="reset" class="btn btn-warning me-3">RESET</button>
+                                <button type="submit" class="btn btn-primary">UPDATE</button>
+                            </div>
                     </form>
                 </div>
-            </div>
-            <div class="text-center mt-3">
-                <a href="{{ route('suppliers.index') }}" class="btn btn-secondary btn-sm">Back to List</a>
             </div>
         </div>
     </div>

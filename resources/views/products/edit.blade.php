@@ -10,12 +10,12 @@
 
     <style>
         body {
-            background: #030303ff;
+            background: #bad4ffff;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         h4 {
-            color: #ffffffff;
+            color: #000000ff;
             font-weight: 700;
         }
 
