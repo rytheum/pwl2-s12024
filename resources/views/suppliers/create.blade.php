@@ -91,7 +91,7 @@
                             <div class="d-flex justify-content-end mt-4">
                                 <button type="submit" class="btn btn-primary me-3 px-4">💾 Save</button>
                                 <button type="button" id="resetBtn" onclick="resetForm()" class="btn btn-warning me-3 px-4">🔄 Reset</button>
-                                <a href="{{ route('products.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
+                                <a href="{{ route('suppliers.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
                             </div>
                         </form>
                     </div>

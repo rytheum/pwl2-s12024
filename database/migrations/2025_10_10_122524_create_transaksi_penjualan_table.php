@@ -11,13 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-         if (!Schema::hasTable('suppliers')) {
-        Schema::create('suppliers', function (Blueprint $table) {
+        Schema::create('transaksi_penjualan', function (Blueprint $table) {
             $table->id();
-            $table->string('supplier_name', 100);
-            $table->string('pic_supplier')->nullable();
+            $table->string('nama_kasir', 50);
+            $table->text('email_pembeli');
+            $table->date('tanggal_transaksi')->useCurrent();
             $table->timestamps();
-        });}
+        });
     }
 
     /**
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('suppliers');
+        Schema::dropIfExists('transaksi_penjualan');
     }
 };
