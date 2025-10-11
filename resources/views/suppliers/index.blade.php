@@ -168,8 +168,8 @@
         <h4>Tech Admin</h4>
         <a href="{{ route('products.index') }}"><i class="fas fa-box"></i> Products</a>
         <a href="{{ route('suppliers.index') }}" class="active"><i class="fas fa-truck"></i> Suppliers</a>
-        <a href="#"><i class="fas fa-tags"></i> Categories</a>
-        <a href="#"><i class="fas fa-sack-dollar"></i> Transactions</a>
+        <a href="{{ route('categories.index') }}"><i class="fas fa-tags"></i> Categories</a>
+        <a href="{{ route('transaksis.index') }}"><i class="fas fa-sack-dollar"></i> Transactions</a>
     </div>
 
 

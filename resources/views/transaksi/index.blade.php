@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Products</title>
+    <title>Transactions</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<style>
+    <style>
     body {
         background: #bad4ffff;
         color: #e6edf3;
@@ -165,68 +164,79 @@
     {{-- SIDEBAR --}}
     <div class="sidebar" id="sidebar">
         <h4>Tech Admin</h4>
-        <a href="{{ route('products.index') }}"class="active"><i class="fas fa-box"></i> Products</a>
+        <a href="{{ route('products.index') }}"class=""><i class="fas fa-box"></i> Products</a>
         <a href="{{ route('suppliers.index') }}" ><i class="fas fa-truck"></i> Suppliers</a>
         <a href="{{ route('categories.index') }}"><i class="fas fa-tags"></i> Categories</a>
-        <a href="{{ route('transaksis.index') }}"><i class="fas fa-sack-dollar"></i> Transactions</a>
+        <a href="{{ route('transaksis.index') }}"class="active"><i class="fas fa-sack-dollar"></i> Transactions</a>
     </div>
 
+    
     {{-- NAVBAR --}}
     <div class="navbar-custom" id="navbar">
         <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars"></i></button>
         <span class="ms-3 fw-semibold">Admin Dashboard</span>
     </div>
 
-    {{-- CONTENT --}}
-    <div class="content" id="content">
-        <h2 class="mb-1">Data Products</h2>
+     {{-- CONTENT --}}
+<div class="content" id="content">
+    <h2 class="mb-3">Data Transactions</h2>
 
-        <div class="card shadow-sm rounded">
+    <div class="card shadow-sm rounded">
             <div class="card-body">
-                <a href="{{ route('products.create') }}" class="btn btn-success mb-3">+ Add Product</a>
+                <a href="{{ route('transaksis.create') }}" class="btn btn-success mb-3">+ Add Supplier</a>
                 <table class="table table-bordered align-middle">
                     <thead class="table-dark">
-                        <tr>
-                            <th>Image</th>
-                            <th>Title</th>
-                            <th>Supplier</th>
-                            <th>Category</th>
-                            <th>Price</th>
-                            <th>Stock</th>
-                            <th style="width: 20%">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @forelse ($products as $product)
-                            <tr>
-                                <td><img src="{{ asset('storage/images/' . $product->image) }}" alt="{{ $product->title }}"></td>
-                                <td>{{ $product->title }}</td>
-                                <td>{{ $product->supplier_name }}</td>
-                                <td>{{ $product->product_category_name }}</td>
-                                <td>{{ "Rp" . number_format($product->price, 2, ',', '.') }}</td>
-                                <td>{{ $product->stock }}</td>
-                                <td class="text-center">
-                                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-lg btn-primary"><i class="fas fa-eye"></i></a>
-                                    <a href="{{ route('products.edit', $product->id) }}" class="btn btn-lg btn-warning"><i class="fas fa-edit"></i></a>
-                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST"
-                                        class="d-inline" id="form-delete" data-title="{{ $product->title }}">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-lg btn-danger"><i class="fas fa-trash"></i></button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="7" class="text-center text-muted">No Products Available</td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-                {{ $products->links() }}
-            </div>
+                <tr>
+                    <th>No</th>
+                    <th>ID Transaksi</th>
+                    <th>Nama Kasir</th>
+                    <th>Email Pembeli</th>
+                    <th>Tanggal Transaksi</th>
+                    <th>Jumlah Item</th>
+                    <th>Total Harga</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody class="text-center">
+                @forelse ($transaksis as $index => $transaksi)
+                    <tr>
+                        <td>{{ $index + 1 }}</td>
+                        <td>TRX-0{{ $transaksi->id }}</td>
+                        <td>{{ $transaksi->nama_kasir }}</td>
+                        <td>{{ $transaksi->email_pembeli ?? '-' }}</td>
+                        <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d M Y, H:i') }}</td>
+                        <td>{{ $transaksi->details->count() }}</td>
+                        <td>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
+                        <td>
+                            <a href="{{ route('transaksis.show', $transaksi->id) }}" class="btn btn-sm btn-primary me-1">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a href="{{ route('transaksis.edit', $transaksi->id) }}" class="btn btn-sm btn-warning me-1">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <form action="{{ route('transaksis.destroy', $transaksi->id) }}" method="POST" class="d-inline" id="form-delete" data-title="Transaksi ID TRX-{{ $transaksi->id }}">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="8" class="text-center text-muted">Belum ada data transaksi</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+
+        <div class="d-flex justify-content-center mt-3">
+            {{ $transaksis->links() }}
         </div>
     </div>
+</div>
+
 <!-- FOOTER -->
 <footer class="footer-custom text-center py-3">
     <p class="mb-0">&copy; {{ date('Y') }} Tech Admin | Built with

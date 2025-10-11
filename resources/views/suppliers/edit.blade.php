@@ -126,7 +126,7 @@
 
                          {{-- BUTTONS --}}
                             <div class="d-flex justify-content-end mt-4">
-                                <a href="{{ route('products.index') }}" class="btn btn-secondary me-3">⬅️ Back</a>
+                                <a href="{{ route('suppliers.index') }}" class="btn btn-secondary me-3">⬅️ Back</a>
                                 <button type="reset" class="btn btn-warning me-3">RESET</button>
                                 <button type="submit" class="btn btn-primary">UPDATE</button>
                             </div>
