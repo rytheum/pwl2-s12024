@@ -12,13 +12,13 @@ class TransaksiPenjualanController extends Controller
     public function index()
     {
         $transaksis = TransaksiPenjualan::with('details')->latest()-> paginate(10);
-        return view('transaksis.index', compact('transaksis'));
+        return view('transaksi.index', compact('transaksis'));
     }
 
     public function create()
     {
         $products = Product::orderBy('title')->get();
-        return view('transaksis.create', compact('products'));
+        return view('transaksi.create', compact('products'));
     }
 
     public function store(Request $request)
@@ -45,7 +45,6 @@ class TransaksiPenjualanController extends Controller
     // Simpan setiap detail produk
     foreach ($request->product_id as $index => $productId) {
         $jumlah = $request->jumlah_pembelian[$index];
-
         $produk = Product::find($productId); // pastikan model Produk ada
         $subtotal = $produk->harga * $jumlah;
         $total += $subtotal;
@@ -53,6 +52,7 @@ class TransaksiPenjualanController extends Controller
         DetailTransakiPenjualan::create([
             'id_transaksi_penjualan' => $transaksi->id,
             'id_product' => $productId,
+            'harga_satuan' => $produk->harga,
             'jumlah_pembelian' => $jumlah,
         ]);
     }
@@ -64,11 +64,17 @@ class TransaksiPenjualanController extends Controller
                      ->with('success', 'Transaksi berhasil disimpan.');
     }
 
+    public function show($id)
+    {
+        $transaksi = TransaksiPenjualan::with('details.product')->findOrFail($id);
+        return view('transaksi.show', compact('transaksi'));
+    }
+    
     public function edit($id)
     {
         $transaksi = TransaksiPenjualan::findOrFail($id);
         $products = Product::all();
-        return view('transaksis.edit', compact('transaksi', 'products'));
+        return view('transaksi.edit', compact('transaksi', 'products'));
     }
 
     public function update(Request $request, $id)
@@ -81,13 +87,13 @@ class TransaksiPenjualanController extends Controller
             'tanggal_transaksi' => $request->tanggal_transaksi,
         ]);
 
-        return redirect()->route('transaksis.index')->with('success', 'Transaksi berhasil diperbarui.');
+        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil diperbarui.');
     }
 
     public function destroy($id)
     {
         $transaksi = TransaksiPenjualan::findOrFail($id);
         $transaksi->delete();
-        return redirect()->route('transaksis.index')->with('success', 'Transaksi berhasil dihapus.');
+        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
     }
 }

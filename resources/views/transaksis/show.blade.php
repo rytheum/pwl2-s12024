@@ -1,3 +1,5 @@
+Show blade 
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +16,7 @@
         }
 
         h3 {
-            color: #ffffffff;
+            color: #000000ff;
             font-weight: 700;
             letter-spacing: 0.5px;
         }
@@ -67,18 +69,18 @@
     <div class="container mt-5 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-8"> <!-- atur lebar card -->
-                <h3 class="mb-4 text-center">📦 Category Details</h3>
+                <h3 class="mb-4 text-center">📦 Detail Transaksi Penjualan</h3>
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body supplier-detail">
-                        <h4 class="supplier-title">Supplier Details</h4>
-                        <hr>
+
                         <!-- Informasi Transaksi -->
             <div class="mb-5">
                 <h5 class="fw-bold mb-3" style="color: #7b5c2e;">Informasi Transaksi</h5>
                 <table class="table table-borderless">
+                    
                     <tr>
                         <td><strong>ID Transaksi:</strong></td>
-                        <td>{{ $transaksi->id_transaksi }}</td>
+                        <td>TRX-0{{ $transaksi->id }}</td>
                     </tr>
                     <tr>
                         <td><strong>Nama Kasir:</strong></td>
@@ -94,11 +96,10 @@
                     </tr>
                 </table>
             </div>
-
             <!-- Rincian Produk -->
                 <h5 class="fw-bold mb-3" style="color: #7b5c2e;">Rincian Produk</h5>
-                <table class="table text-center align-middle">
-                    <thead style="background-color: #fff1c4;">
+                <table class="table table-bordered align-middle text-left">
+                    <thead class="table-dark">
                         <tr>
                             <th>Produk</th>
                             <th>Jumlah</th>
@@ -110,13 +111,14 @@
                         @php $grandTotal = 0; @endphp
                         @foreach($transaksi->details as $detail)
                             @php 
-                                $subtotal = $detail->jumlah * $detail->harga_satuan;
+                                $hargaSatuan = $detail->product->price;
+                                $subtotal = $detail->jumlah_pembelian * $hargaSatuan;
                                 $grandTotal += $subtotal;
                             @endphp
                             <tr>
-                                <td>{{ $detail->product->nama_produk }}</td>
-                                <td>{{ $detail->jumlah }}</td>
-                                <td>Rp{{ number_format($detail->harga_satuan, 0, ',', '.') }}</td>
+                                <td>{{ $detail->product->title }}</td>
+                                <td>{{ $detail->jumlah_pembelian }}</td>
+                                <td>Rp{{ number_format($hargaSatuan, 2, ',', '.') }}</td>
                                 <td>Rp{{ number_format($subtotal, 0, ',', '.') }}</td>
                             </tr>
                         @endforeach
