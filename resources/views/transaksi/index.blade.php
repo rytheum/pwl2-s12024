@@ -196,7 +196,7 @@
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody class="text-center">
+            <tbody class="text-left">
                 @forelse ($transaksis as $index => $transaksi)
                     <tr>
                         <td>{{ $index + 1 }}</td>
