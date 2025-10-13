@@ -1,5 +1,3 @@
-Show blade 
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -130,7 +128,7 @@ Show blade
                 </table>
                 <hr class="mt-4 mb-4">
                 <div class="d-flex justify-content-end mt-4">
-                    <a href="{{ route('transaksis.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
+                    <a href="{{ route('transaksis.index') }}" class="btn btn-secondary px-4">⬅ Back</a>
                 </div>
             </>
         </div>

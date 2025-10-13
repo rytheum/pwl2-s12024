@@ -183,7 +183,7 @@
 
     <div class="card shadow-sm rounded">
             <div class="card-body">
-                <a href="{{ route('transaksis.create') }}" class="btn btn-success mb-3">+ Add Supplier</a>
+                <a href="{{ route('transaksis.create') }}" class="btn btn-success mb-3">+ Add Transaction</a>
                 <table class="table table-bordered align-middle">
                     <thead class="table-dark">
                 <tr>
