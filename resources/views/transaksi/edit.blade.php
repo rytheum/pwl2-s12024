@@ -58,142 +58,119 @@
         <div class="row">
             <div class="col-md-10 mx-auto">
                 <h3>Edit Transaction</h3>
-
                 <div class="card border-0 shadow-sm rounded">
                     <div class="card-body">
-                        <form id="transaksiForm" action="{{ route('transaksis.store') }}" method="POST">
+                        <!-- Form Edit Transaksi -->
+                        <form action="{{ route('transaksis.update', $transaksi->id) }}" method="POST">
                             @csrf
+                            @method('PUT')
 
                             <!-- Nama Kasir -->
-                            <div class="form-group mb-3">
-                            <label class="font-weight-bold">Nama Kasir</label>
-                            <input 
-                                type="text" class="form-control @error('nama_kasir') is-invalid @enderror"
-                                name="nama_kasir"
-                                value="{{ old('nama_kasir', $transaksi->nama_kasir) }}"
-                                placeholder="Masukkan Nama Kasir">
-
-                            @error('nama_kasir')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <div class="mb-3">
+                                <label for="nama_kasir" class="form-label">Nama Kasir</label>
+                                <input type="text" name="nama_kasir" id="nama_kasir" class="form-control"
+                                    value="{{ old('nama_kasir', $transaksi->nama_kasir) }}" required>
                             </div>
 
                             <!-- Email Pembeli -->
-                            <div class="form-group mb-3">
-                            <label class="font-weight-bold">Email Pembeli</label>
-                            <input 
-                                type="text" class="form-control @error('email_pembeli') is-invalid @enderror"
-                                name="email_pembeli"
-                                value="{{ old('email_pembeli', $transaksi->email_pembeli) }}"
-                                placeholder="Masukkan Email Pembeli">
-
-                            @error('email_pembeli')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <div class="mb-3">
+                                <label for="email_pembeli" class="form-label">Email Pembeli</label>
+                                <input type="email" name="email_pembeli" id="email_pembeli" class="form-control"
+                                    value="{{ old('email_pembeli', $transaksi->email_pembeli) }}" required>
                             </div>
 
                             <!-- Tanggal Transaksi -->
-                            <div class="form-group mb-3">
-                            <label class="font-weight-bold">Tanggal Transaksi</label>
-                            <input                                 
-                                type="date" class="form-control @error('tanggal_transaksi') is-invalid @enderror"
-                                name="tanggal_transaksi"
-                                value="{{ old('tanggal_transaksi', $transaksi->tanggal_transaksi) }}"
-                                placeholder="Masukkan Email Pembeli">
-
-                            @error('tanggal_transaksi')
-                                <div class="alert alert-danger mt-2">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <div class="mb-3">
+                                <label for="tanggal_transaksi" class="form-label">Tanggal Transaksi</label>
+                                <input type="date" name="tanggal_transaksi" id="tanggal_transaksi" class="form-control"
+                                    value="{{ old('tanggal_transaksi', \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('Y-m-d\TH:i')) }}" required>
                             </div>
 
-                            <hr>
+                            <hr class="my-4">
 
-                            <h5 class="mb-3 text-primary">Daftar Produk Dibeli</h5>
-                            <div id="product-container">
-                                <div class="product-group">
-                                    <div class="row g-3 align-items-end">
-                                        <div class="col-md-8">
-                                            <label for="product_id[]">Pilih Produk</label>
-                                            <select name="product_id[]" class="form-select">
-                                                <option value="">-- Pilih Produk --</option>
-                                                @foreach($products as $product)
-                                                    <option value="{{ $product->id }}">{{ $product->title }} - Rp {{ number_format($product->price, 0, ',', '.') }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                            <!-- Produk & Jumlah -->
+                            <div id="produk-list">
+                                <label class="form-label">Pilih Produk & Jumlah</label>
 
-                                        <div class="col-md-4">
-                                            <input 
-                                                type="number" name="jumlah_pembelian[]" class="form-control"
-                                                placeholder="Jumlah"
-                                                value="{{ old('jumlah_pembelian.', $detail->jumlah_pembelian) }}" required>
-                                        </div>
+                                @foreach($transaksi->details as $index => $detail)
+                                <div class="row align-items-center mb-3 produk-item">
+                                    <div class="col-md-6">
+                                        <select name="product_id[]" class="form-select" required>
+                                            <option value="">-- Pilih Produk --</option>
+                                            @foreach($products as $product)
+                                                <option value="{{ $product->id }}"
+                                                    {{ $product->id == $detail->id_product ? 'selected' : '' }}>
+                                                    {{ $product->title }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
-                                        <div class="col-md-1 text-center">
-                                            <button type="button" class="btn btn-danger btn-sm remove-product">&times;</button>
-                                        </div>
+                                    <div class="col-md-4">
+                                        <input type="number" name="jumlah_pembelian[]" class="form-control"
+                                            placeholder="Jumlah"
+                                            value="{{ old('jumlah_pembelian.' . $index, $detail->jumlah_pembelian) }}" required>
+                                    </div>
+
+                                    <div class="col-md-2 text-center">
+                                        <button type="button" class="btn btn-danger remove-produk">Hapus</button>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
 
-                            <div class="mt-3">
-                                <button type="button" id="addProduct" class="btn btn-sm btn-outline-primary">+ Tambah Produk</button>
+                            <div class="mb-3 text-end">
+                                <button type="button" id="add-produk" class="btn btn-secondary">+ Tambah Produk</button>
                             </div>
 
-                            <hr class="mt-4 mb-4">
-                            <div class="d-flex justify-content-end mt-4">
-                                <button type="submit" class="btn btn-primary me-3 px-4">💾 Save</button>
-                                <button type="button" id="resetBtn" onclick="resetForm()" class="btn btn-warning me-3 px-4">🔄 Reset</button>
-                                <a href="{{ route('transaksis.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
+                            <div class="text-end">
+                                <button type="submit" class="btn btn-primary">💾 Simpan Perubahan</button>
+                                <a href="{{ route('transaksis.index') }}" class="btn btn-outline-secondary">Batal</a>
                             </div>
                         </form>
+
+                        <!-- Template untuk tambah produk baru -->
+                        <template id="produk-template">
+                            <div class="row align-items-center mb-3 produk-item">
+                                <div class="col-md-6">
+                                    <select name="product_id[]" class="form-select" required>
+                                        <option value="">-- Pilih Produk --</option>
+                                        @foreach($products as $product)
+                                            <option value="{{ $product->id }}">{{ $product->title }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-4">
+                                    <input type="number" name="jumlah_pembelian[]" class="form-control" placeholder="Jumlah" required>
+                                </div>
+                                <div class="col-md-2 text-center">
+                                    <button type="button" class="btn btn-danger remove-produk">Hapus</button>
+                                </div>
+                            </div>
+                        </template>
+
+                        <!-- Script dynamic add/remove -->
+                        <script>
+                        document.getElementById('add-produk').addEventListener('click', function() {
+                            const template = document.getElementById('produk-template').content.cloneNode(true);
+                            document.getElementById('produk-list').appendChild(template);
+                        });
+
+                        document.addEventListener('click', function(e) {
+                            if (e.target.classList.contains('remove-produk')) {
+                                e.target.closest('.produk-item').remove();
+                            }
+                        });
+                        </script>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.ckeditor.com/4.25.1/standard/ckeditor.js"></script>
     <script>
 
-        function resetForm() {
-            document.getElementById('transaksiForm').reset();
-            for (var instance in CKEDITOR.instances) {
-                CKEDITOR.instances[instance].setData('');
-            }
-        }
-    </script>
-
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        let index = 1;
-        const container = document.getElementById('product-container');
-        const tambahBtn = document.getElementById('addProduct');
-
-        tambahBtn.addEventListener('click', () => {
-            const item = document.querySelector('.product-group').cloneNode(true);
-            item.querySelectorAll('select, input').forEach((el) => {
-                // Reset value inputan
-                if (el.tagName === 'INPUT') el.value = '';
-                if (el.tagName === 'SELECT') el.selectedIndex = 0;
-            });
-            container.appendChild(item);
-            index++;
-        });
-
-        container.addEventListener('click', (e) => {
-            if (e.target.classList.contains('remove-product') && container.children.length > 1) {
-                e.target.closest('.product-group').remove();
-            }
-        });
-    });
-    </script>
 </body>
 </html>
