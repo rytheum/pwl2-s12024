@@ -10,6 +10,8 @@ class DetailTransakiPenjualan extends Model
     use HasFactory;
     protected $table = 'detail_transaksi_penjualan';
 
+    public $timestamps = false;
+
     protected $fillable = [
         'id_transaksi_penjualan',
         'id_product',
