@@ -193,7 +193,6 @@
                     <th>Email Pembeli</th>
                     <th>Tanggal Transaksi</th>
                     <th>Jumlah Item</th>
-                    <th>Total Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -206,7 +205,6 @@
                         <td>{{ $transaksi->email_pembeli ?? '-' }}</td>
                         <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d M Y, H:i') }}</td>
                         <td>{{ $transaksi->details->count() }}</td>
-                        <td>Rp {{ number_format($transaksi->total_harga, 0, ',', '.') }}</td>
                         <td>
                             <a href="{{ route('transaksis.show', $transaksi->id) }}" class="btn btn-sm btn-primary me-1">
                                 <i class="fas fa-eye"></i>
