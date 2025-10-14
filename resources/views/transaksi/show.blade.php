@@ -29,7 +29,7 @@
                             </tr>
                             <tr>
                                 <td><strong>Tanggal Transaksi:</strong></td>
-                                <td>{{ \Carbon\Carbon::parse($transaksi->tanggal_transaksi)->format('d M Y, H:i:s') }}</td>
+                                <td>{{ \Carbon\Carbon::parse($transaksi->created_at)->format('d M Y, H:i:s') }}</td>
                             </tr>
                         </table>
                     </div>

@@ -117,7 +117,7 @@
 
     {{-- SCRIPTS --}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-
+    @stack('scripts') {{-- ✅ supaya script tambahan dari child blade bisa ditaruh di sini --}}
     <script>
         const loader = document.getElementById("loader-wrapper");
 
