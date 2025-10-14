@@ -1,115 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.main')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Product</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+@section('title', 'Product Details')
 
-    <style>
-        body {
-            background: #bad4ffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <h3 class="mb-4 text-center">📦 Product Details</h3>
 
-        h3 {
-            color: #ffffffff;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        .card {
-            border-radius: 15px;
-            background: #fff;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .card-body {
-            padding: 25px;
-        }
-
-        .product-title {
-            color: #212529;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-
-        .product-detail p {
-            margin-bottom: 10px;
-            color: #2c3e50;
-        }
-
-        .product-detail strong {
-            color: #0d6efd;
-        }
-
-        img {
-            width: 100%;
-            border-radius: 12px;
-        }
-
-        .btn-secondary {
-            color: #fff;
-            background-color: #6c757d;
-            border: none;
-            transition: all 0.3s ease;
-            border-radius: 8px;
-        }
-
-        .btn-secondary:hover {
-            background-color: #565e64;
-        }
-    </style>
-</head>
-
-<body>
-    <div class="container mt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-md-10">
-                <h3 class="mb-4 text-center">📦 Product Details</h3>
+        <div class="card border-0 shadow-sm rounded">
+            <div class="card-body p-4">
                 <div class="row">
-                    {{-- Image Section --}}
+                    {{-- IMAGE SECTION --}}
                     <div class="col-md-4 mb-4">
-                        <div class="card border-0 shadow-sm rounded">
-                            <div class="card-body text-center">
-                                <img src="{{ asset('storage/images/' . $product->image) }}" alt="Product Image">
-                            </div>
+                        <div class="border rounded shadow-sm p-2 text-center bg-light">
+                            @if($product->image)
+                                <img src="{{ asset('storage/images/' . $product->image) }}" 
+                                     alt="Product Image"
+                                     class="img-fluid rounded"
+                                     style="max-height: 280px; object-fit: cover;">
+                            @else
+                                <img src="https://via.placeholder.com/280x280?text=No+Image" 
+                                     alt="No Image"
+                                     class="img-fluid rounded">
+                            @endif
                         </div>
                     </div>
 
-                    {{-- Detail Section --}}
-                    <div class="col-md-8 mb-4">
-                        <div class="card border-0 shadow-sm rounded">
-                            <div class="card-body product-detail">
-                                <h4 class="product-title">{{ $product->title }}</h4>
-                                <hr>
-                                <p><strong>Category:</strong> {{ $product->product_category_name ?? '-' }}</p>
-                                <hr>
-                                <p><strong>Supplier:</strong> {{ $product->supplier_name ?? '-' }}</p>
-                                <hr>
-                                <p><strong>Price:</strong> Rp{{ number_format($product->price, 0, ',', '.') }}</p>
-                                <hr>
-                                <p><strong>Description:</strong></p>
-                                <div class="border rounded p-3 bg-light text-secondary" style="white-space: pre-line;">
-                                    {{ $product->description }}
-                                </div>
-                                <hr>
-                                <p><strong>Stock:</strong> {{ $product->stock }}</p>
+                    {{-- DETAIL SECTION --}}
+                    <div class="col-md-8">
+                        <h4 class="fw-bold mb-3 text-primary">{{ $product->title }}</h4>
+                        <hr>
 
-                                {{-- Back Button --}}
-                                <div class="text-end mt-4">
-                                    <a href="{{ route('products.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
-                                </div>
-                            </div>
+                        <p><strong>Category:</strong> {{ $product->product_category_name ?? '-' }}</p>
+                        <p><strong>Supplier:</strong> {{ $product->supplier_name ?? '-' }}</p>
+                        <p><strong>Price:</strong> Rp{{ number_format($product->price, 0, ',', '.') }}</p>
+                        <p><strong>Stock:</strong> {{ $product->stock }}</p>
+
+                        <p class="mt-3 mb-1"><strong>Description:</strong></p>
+                        <div class="border rounded p-3 bg-light text-secondary" style="white-space: pre-line;">
+                            {{ $product->description }}
+                        </div>
+
+                        {{-- BACK BUTTON --}}
+                        <div class="text-end mt-4">
+                            <a href="{{ route('products.index') }}" class="btn btn-secondary px-4">
+                                ⬅️ Back
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+    </div> 
+</div>
+@endsection
