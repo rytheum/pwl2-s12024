@@ -1,106 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Supplier</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background: #bad4ffff;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        h3 {
-            color: #000000ff;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-        .card {
-            border-radius: 15px;
-            background: #fff;
-            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
-        }
-        .form-label {
-            color: #2c3e50;
-            font-weight: 600;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-            transition: all 0.3s ease;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .btn-warning {
-            color: #fff;
-            background-color: #f39c12;
-            border: none;
-            transition: all 0.3s ease;
-        }
-        .btn-warning:hover {
-            background-color: #d68910;
-        }
-        .btn-secondary {
-            color: #fff;
-            background-color: #6c757d;
-            border: none;
-            transition: all 0.3s ease;
-        }
-        .btn-secondary:hover {
-            background-color: #565e64;
-        }
-    </style>
-</head>
+@extends('layouts.main')
 
-<body>
-    <div class="container mt-5 mb-5">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <h3 class="mb-4 text-center">Add New Supplier</h3>
-                <div class="card border-0 shadow-sm rounded">
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('suppliers.store') }}">
-                            @csrf
+@section('title', 'Add New Supplier')
 
-                            {{-- Supplier Name --}}
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">Supplier</label>
-                                <input type="text" name="supplier_name" 
-                                       class="form-control @error('supplier_name') is-invalid @enderror" 
-                                       placeholder="Masukkan nama supplier" 
-                                       value="{{ old('supplier_name') }}">
-                                @error('supplier_name')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+@section('content')
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <h3 class="mb-4 text-center">Add New Supplier</h3>
 
-                            {{-- PIC Supplier --}}
-                            <div class="form-group mb-3">
-                                <label class="font-weight-bold">PIC Supplier</label>
-                                <input type="text" name="pic_supplier" 
-                                       class="form-control @error('pic_supplier') is-invalid @enderror" 
-                                       placeholder="Masukkan nama PIC" 
-                                       value="{{ old('pic_supplier') }}">
-                                @error('pic_supplier')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
+        <div class="card border-0 shadow-sm rounded">
+            <div class="card-body">
+                <form method="POST" action="{{ route('suppliers.store') }}">
+                    @csrf
 
-                            {{-- BUTTONS --}}
-                            <div class="d-flex justify-content-end mt-4">
-                                <button type="submit" class="btn btn-primary me-3 px-4">💾 Save</button>
-                                <button type="button" id="resetBtn" onclick="resetForm()" class="btn btn-warning me-3 px-4">🔄 Reset</button>
-                                <a href="{{ route('suppliers.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
-                            </div>
-                        </form>
+                    {{-- Supplier Name --}}
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-semibold">Supplier Name</label>
+                        <input 
+                            type="text" 
+                            name="supplier_name"
+                            class="form-control @error('supplier_name') is-invalid @enderror" 
+                            placeholder="Masukkan nama supplier" 
+                            value="{{ old('supplier_name') }}">
+                        @error('supplier_name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
-                </div>
-                
+
+                    {{-- PIC Supplier --}}
+                    <div class="form-group mb-3">
+                        <label class="form-label fw-semibold">PIC Supplier</label>
+                        <input 
+                            type="text" 
+                            name="pic_supplier"
+                            class="form-control @error('pic_supplier') is-invalid @enderror" 
+                            placeholder="Masukkan nama PIC" 
+                            value="{{ old('pic_supplier') }}">
+                        @error('pic_supplier')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
+                    {{-- BUTTONS --}}
+                    <div class="d-flex justify-content-end mt-4">
+                        <button type="submit" class="btn btn-primary me-3 px-4">💾 Save</button>
+                        <button type="reset" class="btn btn-warning me-3 px-4">🔄 Reset</button>
+                        <a href="{{ route('suppliers.index') }}" class="btn btn-secondary px-4">⬅️ Back</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+</div>
+@endsection
