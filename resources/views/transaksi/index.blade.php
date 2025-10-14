@@ -8,6 +8,7 @@
     <div class="card shadow-sm rounded">
         <div class="card-body">
             <a href="{{ route('transaksis.create') }}" class="btn btn-success mb-3">+ Add Transaction</a>
+
             <table class="table table-bordered align-middle">
                 <thead class="table-dark">
                     <tr>
@@ -36,11 +37,8 @@
                                 <a href="{{ route('transaksis.edit', $transaksi->id) }}" class="btn btn-lg btn-warning me-1">
                                     <i class="fas fa-edit"></i>
                                 </a>
-                                <form action="{{ route('transaksis.destroy', $transaksi->id) }}" 
-                                      method="POST" 
-                                      class="d-inline" 
-                                      id="form-delete" 
-                                      data-title="Transaksi ID TRX-{{ $transaksi->id }}">
+                                <form action="{{ route('transaksis.destroy', $transaksi->id) }}" method="POST"
+                                    class="d-inline form-delete" data-title="Transaksi ID TRX-{{ $transaksi->id }}">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-lg btn-danger">
@@ -51,7 +49,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="8" class="text-center text-muted">Belum ada data transaksi</td>
+                            <td colspan="7" class="text-center text-muted">Belum ada data transaksi</td>
                         </tr>
                     @endforelse
                 </tbody>
@@ -62,51 +60,4 @@
             </div>
         </div>
     </div>
-
-    {{-- SweetAlert flash message --}}
-    @if(session()->has('success'))
-        <script>
-            Swal.fire({
-                icon: "success",
-                title: "BERHASIL",
-                text: "{{ session('success') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        </script>
-    @elseif(session('error'))
-        <script>
-            Swal.fire({
-                icon: "error",
-                title: "GAGAL",
-                text: "{{ session('error') }}",
-                showConfirmButton: false,
-                timer: 2000
-            });
-        </script>
-    @endif
-
-    {{-- Script konfirmasi hapus --}}
-    <script>
-        document.querySelectorAll('#form-delete').forEach(function (form) {
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-                const productTitle = form.getAttribute('data-title');
-                Swal.fire({
-                    title: `Yakin hapus "${productTitle}"?`,
-                    text: "Data yang dihapus tidak bisa dikembalikan!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#d33",
-                    cancelButtonColor: "#3085d6",
-                    confirmButtonText: "Ya, hapus!",
-                    cancelButtonText: "Batal"
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        form.submit();
-                    }
-                });
-            });
-        });
-    </script>
 @endsection

@@ -126,6 +126,6 @@ class TransaksiPenjualanController extends Controller
     {
         $transaksi = TransaksiPenjualan::findOrFail($id);
         $transaksi->delete();
-        return redirect()->route('transaksi.index')->with('success', 'Transaksi berhasil dihapus.');
+        return redirect()->route('transaksis.index')->with('success', 'Transaksi berhasil dihapus.');
     }
 }
