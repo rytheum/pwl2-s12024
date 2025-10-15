@@ -124,3 +124,37 @@
         });
     </script>
 @endpush
+
+@push('scripts')
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    function checkDuplicateProducts() {
+        const selects = document.querySelectorAll('select[name="product_id[]"]');
+        const selectedValues = [];
+
+        selects.forEach(select => {
+            const value = select.value;
+
+            if (value && selectedValues.includes(value)) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Produk sudah dipilih!",
+                    text: "Kamu tidak bisa memilih produk yang sama dua kali.",
+                    showConfirmButton: false,
+                    timer: 2000
+                });
+                select.value = ""; // reset pilihan
+            } else if (value) {
+                selectedValues.push(value);
+            }
+        });
+    }
+
+    document.addEventListener("change", function (e) {
+        if (e.target && e.target.matches('select[name="product_id[]"]')) {
+            checkDuplicateProducts();
+        }
+    });
+});
+</script>
+@endpush

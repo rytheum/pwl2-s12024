@@ -29,6 +29,7 @@ class TransaksiPenjualanController extends Controller
         'email_pembeli' => 'required|email',
         'tanggal_transaksi' => 'required|date',
         'product_id' => 'required|array',
+        'product_id.*' => 'exists:products,id',
         'jumlah_pembelian' => 'required|array',
     ]);
 
@@ -87,6 +88,7 @@ class TransaksiPenjualanController extends Controller
         'email_pembeli' => 'required|email',
         'tanggal_transaksi' => 'required|date',
         'product_id' => 'required|array',
+        'product_id.*' => 'exists:products,id',
         'jumlah_pembelian' => 'required|array',
     ]);
 
