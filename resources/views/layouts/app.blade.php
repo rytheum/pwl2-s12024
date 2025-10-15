@@ -137,14 +137,38 @@
         }
 
         /* ===== CARD HOVER EFFECT ===== */
-        .card {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .card_home {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
-        .card:hover {
-            transform: scale(1.07);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            cursor: pointer;
+        .card_home:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Bagian body dan footer */
+        .card_home-body {
+            padding: 2rem 0;
+            color: white;
+        }
+
+        .card_home-footer {
+            padding: 0.75rem;
+            font-weight: bold;
+            border-top: none;
+        }
+
+        /* Hilangkan underline link & kasih efek hover di teks */
+        .card_home-footer a {
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .card_home-footer a:hover {
+            opacity: 0.9;
         }
 
     </style>
