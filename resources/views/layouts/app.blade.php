@@ -43,6 +43,10 @@
             margin-bottom: 40px;
         }
 
+        .sidebar h4 i {
+            text-shadow: 0 0 10px #00d5ff, 0 0 20px #00d5ff;
+        }
+
         .sidebar a {
             display: block;
             padding: 12px 25px;
@@ -92,6 +96,7 @@
             color: #00d5ff;
             font-size: 24px;
             cursor: pointer;
+            text-shadow: 0 0 10px #00d5ff, 0 0 20px #00d5ff;
         }
 
         /* ===== CONTENT ===== */
@@ -177,7 +182,10 @@
 <body>
     {{-- SIDEBAR --}}
     <div class="sidebar" id="sidebar">
-        <h4>Tech Admin</h4>
+        <h4>
+            <i class="fas fa-laptop-code text-info fa-2x"></i> 
+            <i>Tech Bar</i>
+        </h4>
         <a href="{{ url('home') }}" class="{{ request()->is('home') ? 'active' : '' }}">
             <i class="fas fa-home"></i> Home
         </a>
