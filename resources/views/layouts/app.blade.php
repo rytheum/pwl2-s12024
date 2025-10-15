@@ -59,6 +59,13 @@
             color: #fff;
         }
 
+        /* ===== CUSTOM PAGE TITLE ===== */
+        .page-title {
+            color: #21262d;
+            font-weight: bold;
+        }
+
+
         /* ===== NAVBAR ===== */
         .navbar-custom {
             background: #161b22;
@@ -128,6 +135,18 @@
             justify-content: center;
             z-index: 2000;
         }
+
+        /* ===== CARD HOVER EFFECT ===== */
+        .card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: scale(1.07);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
     </style>
 </head>
 

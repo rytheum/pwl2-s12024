@@ -3,7 +3,7 @@
 @section('title', 'Data Categories')
 
 @section('content')
-    <h2 class="fw-bold mb-1">Data Categories</h2>
+    <h2 class="fw-bold mb-1 page-title">Data Categories</h2>
 
     <div class="card shadow-sm rounded">
         <div class="card-body">

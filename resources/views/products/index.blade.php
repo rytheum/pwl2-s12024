@@ -3,7 +3,7 @@
 @section('title', 'Data Products')
 
 @section('content')
-    <h2 class="fw-bold mb-1">Data Products</h2>
+    <h2 class="fw-bold mb-1 page-title">Data Products</h2>
 
     <div class="card shadow-sm rounded">
         <div class="card-body">
