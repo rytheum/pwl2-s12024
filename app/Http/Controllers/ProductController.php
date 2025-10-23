@@ -127,50 +127,54 @@ class ProductController extends Controller
      * @return RedirectResponse
      */
     public function update(Request $request, string $id): RedirectResponse
-    {
-        //validate form
-        $validatedData = $request->validate([
-            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'title' => 'required|min:5',
-            'product_category' => 'required|integer',
-            'description' => 'required|min:10',
-            'harga' => 'required|numeric',
-            'stock' => 'required|numeric'
-        ]);
+{
+    // Validasi form
+    $validatedData = $request->validate([
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'title' => 'required|min:5',
+        'product_category' => 'required|integer',
+        'supplier_id' => 'required|integer',
+        'description' => 'required|min:10',
+        'price' => 'required|numeric',
+        'stock' => 'required|numeric'
+    ]);
 
-        //get product by id
-        $product_model = new Product;
-        $name_image = null;
+    $product_model = new Product;
+    $data_product = $product_model->get_product()->where('products.id', $id)->firstOrFail();
 
-        //check if image is uploaded
-        if ($request->hasFile('image')) {
+    // Default: pakai gambar lama
+    $name_image = $data_product->image;
 
-            //upload new image
-            $image = $request->file('image');
-            $store_image = $image->store('images', 'public');
-            $name_image = $image->hashName();
+    // Kalau user upload gambar baru
+    if ($request->hasFile('image')) {
+        $image = $request->file('image');
+        $name_image = $image->hashName();
+        $image->store('images', 'public');
 
-            //cari data product berdasarkan id
-            $data_product = $product_model->get_product()->where('products.id', $id)->firstOrFail();
-
-            //hapus image lama
+        // Hapus gambar lama (jika ada)
+        if ($data_product->image) {
             Storage::disk('public')->delete('images/' . $data_product->image);
         }
-
-        //update product with new image
-        $request = [
-            'title' => $request->title,
-            'product_category_id' => $request->product_category,
-            'supplier_id' => $request->supplier_id,
-            'description' => $request->description,
-            'price' => $request->harga,
-            'stock' => $request->stock
-        ];
-        $update_product = $product_model->updateProduct($id, $request, $name_image);
-
-        //redirect to index
-        return redirect()->route('products.index')->with('success', 'Data Berhasil Diubah!.');
     }
+
+    // Data yang akan diupdate
+    $updateData = [
+        'title' => $request->title,
+        'product_category_id' => $request->product_category,
+        'supplier_id' => $request->supplier_id,
+        'description' => $request->description,
+        'price' => $request->price,
+        'stock' => $request->stock,
+        'image' => $name_image,
+    ];
+
+    // Update ke model
+    $update_product = $product_model->updateProduct($id, $updateData, $name_image);
+
+    // Redirect ke index
+    return redirect()->route('products.index')->with('success', 'Data Berhasil Diubah!');
+}
+
 
     /**
      * destroy
