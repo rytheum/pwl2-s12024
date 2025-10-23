@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
@@ -45,4 +46,29 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function get_user(){
+        $sql = $this->select("*");
+        return $sql;
+    }
+
+     /**
+     * 🔹 Fungsi untuk membuat user baru (dipanggil dari AuthController)
+     */
+    public function createUser(array $data)
+    {
+        // Cek apakah email sudah terdaftar
+        $user = $this->where('email', $data['email'])->first();
+        if ($user) {
+            return null; // kalau sudah ada, return null
+        }
+
+        // Buat user baru
+        return $this->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+    }
 }
+
