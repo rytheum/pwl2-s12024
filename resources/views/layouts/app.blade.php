@@ -69,7 +69,6 @@
             font-weight: bold;
         }
 
-
         /* ===== NAVBAR ===== */
         .navbar-custom {
             background: #161b22;
@@ -130,7 +129,7 @@
             left: 0;
         }
 
-        /* LOADER (pakai simple spinner, biar cepat) */
+        /* LOADER */
         #loader {
             position: fixed;
             inset: 0;
@@ -154,7 +153,6 @@
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
-        /* Bagian body dan footer */
         .card_home-body {
             padding: 2rem 0;
             color: white;
@@ -166,7 +164,6 @@
             border-top: none;
         }
 
-        /* Hilangkan underline link & kasih efek hover di teks */
         .card_home-footer a {
             text-decoration: none;
             transition: opacity 0.2s ease;
@@ -175,7 +172,6 @@
         .card_home-footer a:hover {
             opacity: 0.9;
         }
-
     </style>
 </head>
 
@@ -207,6 +203,14 @@
     <div class="navbar-custom" id="navbar">
         <button class="toggle-btn" id="toggle-btn"><i class="fas fa-bars"></i></button>
         <span class="ms-3 fw-semibold">@yield('title', 'Dashboard')</span>
+        <div class="ms-auto d-flex align-items-center">
+            <form action="{{ route('logout') }}" method="POST" class="m-0 p-0 no-loader">
+                @csrf
+                <button type="submit" class="btn btn-sm btn-outline-info text-light">
+                    <i class="fas fa-right-from-bracket"></i> Logout
+                </button>
+            </form>
+        </div>
     </div>
 
     {{-- CONTENT --}}
@@ -244,9 +248,11 @@
             footer.classList.toggle("full");
         });
 
-        // === Loader + SweetAlert ===
-       document.querySelectorAll("form").forEach(form => {
+        // === Loader + SweetAlert (hapus data) ===
+        document.querySelectorAll("form").forEach(form => {
             form.addEventListener("submit", e => {
+                if (form.classList.contains('no-loader')) return; // 🚫 Jangan tampilkan loader untuk form logout
+
                 if (form.classList.contains('form-delete')) {
                     e.preventDefault();
                     const title = form.getAttribute('data-title') || 'data ini';
@@ -262,7 +268,7 @@
                     }).then(result => {
                         if (result.isConfirmed) {
                             loader.style.display = 'flex';
-                            form.submit(); // ⬅️ ini akan jalan kalau form valid
+                            form.submit();
                         }
                     });
                 } else {
@@ -271,6 +277,25 @@
             });
         });
 
+        // === Konfirmasi logout ===
+        document.querySelectorAll("form[action='{{ route('logout') }}']").forEach(form => {
+            form.addEventListener("submit", e => {
+                e.preventDefault();
+                Swal.fire({
+                    title: "Yakin ingin logout?",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Ya, Logout",
+                    cancelButtonText: "Batal"
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
 
         // === Flash message ===
         document.addEventListener('DOMContentLoaded', () => {
