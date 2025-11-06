@@ -33,6 +33,18 @@ class ProductController extends Controller
         return view('products.index', compact('products'));
     }
 
+    public function meh(){
+        return Product::all();
+    }
+
+    public function meh_id($id){
+        $product = Product::find($id);
+        
+        if(!$product){return response()->json(['message' => 'Product not found'], 404);
+    }
+        return $product;
+    }
+    
     /**
      * create
      * 
@@ -197,4 +209,5 @@ class ProductController extends Controller
         //redirect to index
         return redirect()->route('products.index')->with('success', 'Data Berhasil Dihapus!.');
     }
+
 }
